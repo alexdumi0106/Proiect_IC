@@ -1,25 +1,33 @@
 const express = require('express');
-const cors = require('cors');  // Enable CORS to allow frontend to make requests
+const cors = require('cors');
+const pool = require('./db'); // Importă conexiunea la baza de date
+
 
 const app = express();
 const PORT = 5000;  // Backend API will run on this port
 
 app.use(cors());  // Enable CORS for all routes
+app.use(express.json());
 
-// Example court data
-const courts = [
-  { id: 1, name: 'Teren1', description: 'Teren central', location: 'Baza Electrica' },
-  { id: 2, name: 'Teren2', description: 'Teren secundar', location: 'Baza Electrica'  }
-];
-
-// Root endpoint for checking backend status
 app.get('/', (req, res) => {
-  res.send('Backend API is running!');  // Simple message for the root URL
+  res.send('Backend-ul funcționează!');
 });
 
-// GET endpoint to fetch all courts
-app.get('/courts', (req, res) => {
-  res.json(courts);  // Return courts data in JSON format
+// Adaugă această rută pentru test
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend merge perfect!' });
+});
+
+
+// GET endpoint to fetch all courts from PostgreSQL
+app.get('/courts', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM courts');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching courts:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // Start the backend server
