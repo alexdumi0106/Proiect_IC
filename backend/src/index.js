@@ -4,23 +4,14 @@ const cors = require('cors');  // Enable CORS to allow frontend to make requests
 const app = express();
 const PORT = 5000;  // Backend API will run on this port
 
+require('dotenv').config();
 app.use(cors());  // Enable CORS for all routes
 
-// Example court data
-const courts = [
-  { id: 1, name: 'Teren1', description: 'Teren central', location: 'Baza Electrica' },
-  { id: 2, name: 'Teren2', description: 'Teren secundar', location: 'Baza Electrica'  }
-];
+const courtRoutes = require('./routes/courtsRoutes');
 
-// Root endpoint for checking backend status
-app.get('/', (req, res) => {
-  res.send('Backend API is running!');  // Simple message for the root URL
-});
+app.use(express.json());
 
-// GET endpoint to fetch all courts
-app.get('/courts', (req, res) => {
-  res.json(courts);  // Return courts data in JSON format
-});
+app.use('/api/courts', courtRoutes);
 
 // Start the backend server
 app.listen(PORT, () => {
