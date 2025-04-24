@@ -1,13 +1,22 @@
-const pool = require('../db');
+// controllers/courtsController.js
+const courtsService = require('../services/courtsService');
 
-const getAllCourts = async (req, res) => {
+exports.getAllCourts = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM courts');
-    res.json(result.rows);
-  } catch (err) {
-    console.error('Error fetching courts:', err);
+    const courts = await courtsService.getAllCourts();
+    res.json(courts);
+  } catch (error) {
+    console.error('Error in getAllCourts:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-module.exports = { getAllCourts };
+exports.getCourtById = async (req, res) => {
+  try {
+    const courtData = await courtsService.getCourtDetails(req.params.id);
+    res.json(courtData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};

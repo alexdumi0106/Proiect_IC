@@ -1,8 +1,9 @@
+// routes/courtsRoutes.js
 const express = require('express');
 const router = express.Router();
-const { getAllCourts } = require('../controllers/courtsController');
+const courtsController = require('../controllers/courtsController');
 
-// Ruta pentru obținerea tuturor terenurilor
-router.get('/', getAllCourts);
+router.get('/', courtsController.getAllCourts);
+router.get('/:id', courtsController.getCourtById );
 
 module.exports = router;

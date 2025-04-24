@@ -1,22 +1,19 @@
 const express = require('express');
 const cors = require('cors');
-const pool = require('./db'); // Importă conexiunea la baza de date
-
+require('dotenv').config(); // Always load env first
 
 const app = express();
-const PORT = 5000;  // Backend API will run on this port
+const PORT = process.env.PORT || 5000; // Use .env fallback if needed
 
-require('dotenv').config();
-app.use(cors());  // Enable CORS for all routes
-app.use(express.json());
+// Middleware
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json()); // Parse JSON bodies
 
-const courtRoutes = require('./routes/courtsRoutes');
+// Routes
+const courtsRoutes = require('./routes/courtsRoutes');
+app.use('/api/courts', courtsRoutes);
 
-app.use(express.json());
-
-app.use('/api/courts', courtRoutes);
-
-// Start the backend server
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(`✅ Backend running at http://localhost:${PORT}`);
 });
