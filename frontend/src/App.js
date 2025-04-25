@@ -1,32 +1,18 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+// import CourtDetailsPage from './pages/CourtDetailsPage'; (for later)
 
-const App = () => {
-  const [courts, setCourts] = useState([]);
-
-  useEffect(() => {
-    // Fetch courts from the backend, for now like this
-    axios.get('http://localhost:5000/courts')
-      .then(response => {
-        setCourts(response.data);  // Store the fetched courts data in state
-      })
-      .catch(error => {
-        console.error('Error fetching courts:', error);
-      });
-  }, []);
-
+function App() {
   return (
-    <div>
-      <h1>Tennis Courts</h1>
-      <ul>
-        {courts.map(court => (
-          <li key={court.id}>{court.name} - {court.location}</li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/courts/:id" element={<CourtDetailsPage />} /> */}
+      </Routes>
+    </Router>
   );
-};
-
+}
 
 export default App;

@@ -16,3 +16,20 @@ exports.getCourtWithComplex = async (courtId) => {
     );
     return result.rows[0];
   };
+
+  exports.getAllCourtsWithComplex = async () => {
+    const result = await pool.query(`
+      SELECT 
+        courts.id,
+        courts.name,
+        courts.description,
+        courts.image_url,
+        sports_complexes.name AS complex_name,
+        sports_complexes.location,
+        sports_complexes.image_url AS complex_image
+      FROM courts
+      JOIN sports_complexes ON courts.sports_complex_id = sports_complexes.id
+    `);
+    return result.rows;
+  };
+  

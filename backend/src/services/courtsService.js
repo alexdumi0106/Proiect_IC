@@ -3,7 +3,7 @@ const courtsRepository = require('../models/courtsModel');
 const reservationsRepository = require('../models/reservationsModel');
 
 exports.getAllCourts = async () => {
-  return await courtsRepository.fetchAllCourts();
+  return await courtsRepository.getAllCourtsWithComplex(); //.fetchAllCourts();
 };
 
 exports.getCourtDetails = async (courtId) => {
