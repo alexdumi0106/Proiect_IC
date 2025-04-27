@@ -1,53 +1,55 @@
-/* src/pages/HomePage.css */
 .homepage {
-    padding: 20px;
-    text-align: center;
-    background: #d3f047;
+  background: linear-gradient(180deg, #d3f047, #c2ff00);
+  min-height: 100vh;
+  padding-bottom: 40px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Hero Header Section */
+.homepage-header {
+  padding: 60px 20px 40px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: inherit;
+
+  /* ✨ Animation */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideUp 1s ease forwards;
+}
+
+/* Header Title */
+.homepage-title {
+  font-size: 3rem;
+  color: white;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Header Subtitle */
+.homepage-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Court List Section (VERTICAL STACK) */
+.court-list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column; /* 🆕 Stack vertically */
+  align-items: center;     /* Center the cards */
+  gap: 30px;               /* Nice spacing between cards */
+}
+
+/* ✨ Animation Keyframes */
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .court-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    margin-top: 30px;
-  }
-  
-  .court-card {
-    display: flex;
-    align-items: center;
-    background: white;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    width: 600px;
-    justify-content: space-between;
-  }
-  
-  .court-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    margin-right: 15px;
-  }
-  
-  .court-info {
-    flex-grow: 1;
-    text-align: left;
-  }
-  
-  .details-btn {
-    background-color: #c2ff00;
-    border: none;
-    padding: 10px 15px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 2px 2px 5px #00000088;
-    border-radius: 6px;
-    transition: 0.2s;
-  }
-  
-  .details-btn:hover {
-    background-color: #b5f300;
-  }
-  
+}
