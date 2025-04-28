@@ -1,35 +1,26 @@
-const db = require('../models/db'); // Conexiunea la baza de date
+const reservationsModel = require('../models/reservationsModel');
 
-// 1. Verifică dacă există conflicte de timp pentru o rezervare
-exports.checkTimeConflict = async (court_id, start_time, end_time) => {
-  const query = `
-    SELECT * FROM reservations
-    WHERE court_id = $1
-    AND (
-      (start_time < $2 AND end_time > $2)  -- overlap la începutul intervalului
-      OR
-      (start_time < $3 AND end_time > $3)  -- overlap la sfârșitul intervalului
-      OR
-      (start_time >= $2 AND end_time <= $3) -- interval complet inclus în altul
-    )
-  `;
-  
-  const values = [court_id, start_time, end_time];
-  const result = await db.query(query, values);
+exports.createReservation = async ({ court_id, user_name, user_email, start_time, end_time }) => {
+  if (!court_id || !user_name || !user_email || !start_time || !end_time) {
+    throw { status: 400, message: 'All fields are required.' };
+  }
 
-  return result.rows.length > 0;  // Dacă sunt rezervări care se suprapun
+  const existingReservations = await reservationsModel.getReservationsByCourtId(court_id);
+
+  const conflict = existingReservations.some(reservation => {
+    const existingStart = new Date(reservation.start_time);
+    const existingEnd = new Date(reservation.end_time);
+    const newStart = new Date(start_time);
+    const newEnd = new Date(end_time);
+
+    return (newStart < existingEnd && newEnd > existingStart);
+  });
+
+  if (conflict) {
+    throw { status: 409, message: 'Time slot already booked.' };
+  }
+
+  const newReservation = await reservationsModel.createReservation(court_id, user_name, user_email, start_time, end_time);
+  return newReservation;
 };
 
-// 2. Creează o nouă rezervare
-exports.createReservation = async (court_id, user_name, user_email, start_time, end_time) => {
-  const query = `
-    INSERT INTO reservations (court_id, user_name, user_email, start_time, end_time)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *
-  `;
-  
-  const values = [court_id, user_name, user_email, start_time, end_time];
-  const result = await db.query(query, values);
-
-  return result.rows[0];  // Returnează rezervarea creată
-};

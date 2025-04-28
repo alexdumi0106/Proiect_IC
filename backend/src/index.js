@@ -13,6 +13,10 @@ app.use(express.json()); // Parse JSON bodies
 const courtsRoutes = require('./routes/courtsRoutes');
 app.use('/api/courts', courtsRoutes);
 
+// +++++ Adaugă import pentru reservationsRoutes:
+const reservationsRoutes = require('./routes/reservationsRoutes');
+app.use('/api', reservationsRoutes);
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`✅ Backend running at http://localhost:${PORT}`);
