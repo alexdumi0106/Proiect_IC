@@ -1,220 +1,222 @@
-/* BACK BUTTON */
+.courtpage-wrapper {
+  background: #f0f9f0;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Back button */
 .back-button {
-  margin: 20px;
-  background: linear-gradient(to right, #4CAF50, #8BC34A);
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
   color: white;
-  font-weight: bold;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.3s, transform 0.3s;
+  margin-bottom: 20px;
 }
 
 .back-button:hover {
-  background: linear-gradient(to right, #45a049, #7cb342);
+  background: linear-gradient(90deg, #45a049, #7cb342);
+  transform: scale(1.05);
 }
 
-/* Whole Page */
-.court-page {
-  padding: 20px;
-  background: linear-gradient(180deg, #d3f047 0%, #c2ff00 100%);
-  min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
+/* Hero Title Section */
+.court-hero {
+  background: linear-gradient(90deg, #b2f7b2, #d3f047);
+  padding: 40px 20px;
+  border-radius: 20px;
+  margin: 20px auto 40px;
   text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  max-width: 900px;
 }
 
-/* Court Name and Complex Name */
-
-.court-page h1 {
+.court-name {
   font-size: 3rem;
   color: white;
-  margin-bottom: 5px;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5); /* 🆕 heavier shadow */
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  margin-bottom: 10px;
 }
 
-.court-page h2 {
+.complex-name {
   font-size: 1.5rem;
-  color: #f5f5f5;
-  margin-bottom: 30px;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.4); /* 🆕 softer shadow */
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
-/* Section for Map + Image */
-/* New "card" that holds Map + Image */
-.court-info-card {
-  margin: 30px auto;
-  width: 90%;
-  max-width: 1000px;
+/* Info Card */
+.info-card {
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  overflow: hidden;
   display: flex;
   flex-direction: row;
-  gap: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin: 0 auto 40px;
+  max-width: 1000px;
 }
 
-/* Half = Map */
-.court-map {
+.map-section, .photo-section {
   width: 50%;
   height: 300px;
-  overflow: hidden;
 }
 
-/* Half = Image */
-.court-photo {
-  width: 50%;
-  height: 300px;
-  overflow: hidden;
-}
-
-.court-photo img {
+.photo-section img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* 📱 Responsive for smaller screens */
-@media (max-width: 768px) {
-  .court-info-card {
-    flex-direction: column;
-  }
-
-  .court-map,
-  .court-photo {
-    width: 100%;
-    height: 250px;
-  }
-}
-
-
 /* Calendar Section */
-.calendar-section {
-  margin-top: 50px;
+.calendar-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin: 0 auto 40px;
+  max-width: 800px;
+  text-align: center;
 }
 
-.calendar-section h3 {
-  font-size: 2rem;
-  color: #333;
+.calendar-card h2 {
   margin-bottom: 20px;
+  font-size: 2rem;
 }
 
-/* Day Selector */
 .day-selector {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: center;
-  gap: 12px;
   margin-bottom: 30px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .day-button {
-  background: white;
-  border: 2px solid #b5f300;
-  padding: 10px 15px;
+  padding: 10px 20px;
+  border: 2px solid #4CAF50;
   border-radius: 8px;
-  cursor: pointer;
+  background: white;
   font-weight: bold;
-  transition: 0.2s;
-  color: #333;
-  min-width: 100px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.day-button.active {
-  background: #b5f300;
+.day-button.active, .day-button:hover {
+  background: #4CAF50;
   color: white;
-  border: 2px solid #b5f300;
 }
 
-.day-button:hover {
-  background: #d3f047;
-}
-
-/* Hours Grid */
-.hours-section {
-  padding: 0 20px;
-}
-
-.hours-section h4 {
-  font-size: 1.8rem;
+/* Hours */
+.calendar-card h3 {
   margin-bottom: 15px;
-  color: #333;
+  font-size: 1.8rem;
 }
 
 .hours-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 12px;
-  justify-items: center;
-  max-width: 600px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 10px;
 }
 
-.hour-slot {
-  padding: 12px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-  color: #333;
-}
-
+/* Available hour slot */
 .hour-slot.available {
-  background: #4CAF50;
-  color: white;
+  background: #d4f7d4; /* light green */
+  color: #2e7d32;
 }
 
+/* Booked (already reserved) hour slot */
 .hour-slot.booked {
-  background: #ccc;
-  color: #555;
+  background: #ffcccc; /* light red */
+  color: #a94442;
   cursor: not-allowed;
 }
 
-.hour-slot.available:hover {
-  background: #45a049;
+/* When user selects a range */
+.hour-slot.selected {
+  background: #a0e6a0; /* deeper green */
+  color: white;
 }
 
-/* Reservation Form */
-.reservation-form {
-  margin-top: 30px;
-  padding: 20px;
+/* The very start slot user clicked */
+.hour-slot.start-slot {
+  border: 3px solid #2e7d32;
+  font-weight: bold;
+  background: #4caf50;
+  color: white;
+}
+
+/* The very end slot user clicked */
+.hour-slot.end-slot {
+  border: 3px solid #2e7d32;
+  font-weight: bold;
+  background: #66bb6a;
+  color: white;
+}
+
+/* Hover over available slot */
+.hour-slot.available:hover {
+  background: #b2ebb2;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+/* General hour-slot style */
+.hour-slot {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+
+/* Reservation Card */
+.reservation-card {
   background: white;
-  border-radius: 12px;
-  width: 90%;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin: 0 auto 40px;
   max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
-.reservation-form input {
+.reservation-card input {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 1rem;
-  color: #333;
 }
 
-.create-btn {
-  background: #4CAF50;
+.reserve-button {
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
   color: white;
   padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.3s, transform 0.3s;
 }
 
-.create-btn:hover {
-  background: #45a049;
+.reserve-button:hover {
+  background: linear-gradient(90deg, #45a049, #7cb342);
+  transform: scale(1.05);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .info-card {
+    flex-direction: column;
+  }
+  .map-section, .photo-section {
+    width: 100%;
+    height: 250px;
+  }
 }

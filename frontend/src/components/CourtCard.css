@@ -3,7 +3,7 @@
     border-radius: 16px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     overflow: hidden;
-    width: 380px; /* 🆙 Bigger card */
+    width: 500px; /* 🆙 Bigger card */
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -26,11 +26,21 @@
   .court-info {
     padding: 20px;
     text-align: center;
+    color: initial; /* 🛠 Reset inheritance! */
   }
   
-  .complex-name {
+  .court-card .court-name {
+    margin: 0;
+    margin-bottom: 12px;
+    font-size: 1.8rem;
+    color: rgb(100, 100, 100);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  .court-card .complex-name {
     font-size: 1rem;
-    color: #999;
+    color: #2f2f2f;
     margin: 0;
     margin-bottom: 8px;
     letter-spacing: 0.5px;
@@ -38,16 +48,7 @@
     font-weight: 600;
   }
   
-  .court-name {
-    margin: 0;
-    margin-bottom: 12px;
-    font-size: 1.8rem;
-    color: #222;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-  
-  .court-location {
+  .court-card .court-location {
     margin: 0 0 20px;
     font-size: 1.1rem;
     color: #666;
