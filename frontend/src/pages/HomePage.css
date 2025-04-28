@@ -1,55 +1,68 @@
 .homepage {
-  background: linear-gradient(180deg, #d3f047, #c2ff00);
-  min-height: 100vh;
-  padding-bottom: 40px;
+  overflow-x: hidden;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Hero Header Section */
-.homepage-header {
-  padding: 60px 20px 40px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  background: inherit;
-
-  /* ✨ Animation */
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeSlideUp 1s ease forwards;
-}
-
-/* Header Title */
-.homepage-title {
-  font-size: 3rem;
-  color: white;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-}
-
-/* Header Subtitle */
-.homepage-subtitle {
-  font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 300;
-  margin-top: 10px;
-  letter-spacing: 0.5px;
-  line-height: 1.4;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
-
-/* Court List Section (VERTICAL STACK) */
-.court-list {
-  margin-top: 40px;
+/* Hero Section */
+.hero-section {
+  min-height: 60vh;
+  background: linear-gradient(180deg, #d3f047, #c2ff00);
   display: flex;
-  flex-direction: column; /* 🆕 Stack vertically */
-  align-items: center;     /* Center the cards */
-  gap: 30px;               /* Nice spacing between cards */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  position: relative;
 }
 
-/* ✨ Animation Keyframes */
-@keyframes fadeSlideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Hero Title */
+.homepage-title {
+  font-size: 4.5rem;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero Subtitle */
+.homepage-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+/* CTA Button */
+.cta-button {
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+  background: linear-gradient(90deg, #45a049, #7cb342);
+  transform: scale(1.05);
+}
+
+/* Wave SVG Divider */
+.wave-divider svg {
+  width: 100%;
+  height: 150px;
+  display: block;
+  background: none;
+}
+
+/* Courts Section */
+.court-list {
+  background: #f7f7f7;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 }
