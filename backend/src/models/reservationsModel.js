@@ -1,5 +1,5 @@
 // models/reservationsModel.js
-const pool = require('../config/db'); // conexiunea la baza de date
+const pool = require('../utils/db'); // conexiunea la baza de date
 
 // Caută rezervările existente pentru un teren
 exports.getReservationsByCourtId = async (courtId) => {
