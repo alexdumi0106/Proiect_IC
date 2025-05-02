@@ -7,3 +7,5 @@ router.get('/', courtsController.getAllCourts);
 router.get('/:id', courtsController.getCourtById );
 
 module.exports = router;
+
+router.post('/', courtsController.createCourt);

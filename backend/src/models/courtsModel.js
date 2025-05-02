@@ -40,3 +40,12 @@ exports.getCourtWithComplex = async (courtId) => {
     return result.rows;
   };
   
+  exports.insertCourt = async (name, description, image_url, sports_complex_id) => {
+    const result = await pool.query(
+      `INSERT INTO courts (name, description, image_url, sports_complex_id)
+       VALUES ($1, $2, $3, $4)
+       RETURNING *`,
+      [name, description, image_url, sports_complex_id]
+    );
+    return result.rows[0];
+  };

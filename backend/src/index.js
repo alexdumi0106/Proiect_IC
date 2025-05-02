@@ -17,6 +17,11 @@ app.use('/api/courts', courtsRoutes);
 const reservationsRoutes = require('./routes/reservationsRoutes');
 app.use('/api', reservationsRoutes);
 
+// Ruta pentru sportsComplex
+const sportsComplexesRoutes = require('./routes/sportsComplexesRoutes');
+app.use('/api/sports-complexes', sportsComplexesRoutes);
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`✅ Backend running at http://localhost:${PORT}`);

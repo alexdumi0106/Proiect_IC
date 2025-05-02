@@ -17,3 +17,8 @@ exports.getCourtDetails = async (courtId) => {
       reservations,
     };
   };
+
+exports.createCourt = async (name, description, image_url, sports_complex_id) => {
+  return await courtsRepository.insertCourt(name, description, image_url, sports_complex_id);
+};
+  

@@ -20,3 +20,14 @@ exports.getCourtById = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+exports.createCourt = async (req, res) => {
+  try {
+    const { name, description, image_url, sports_complex_id } = req.body;
+    const newCourt = await courtsService.createCourt(name, description, image_url, sports_complex_id);
+    res.status(201).json(newCourt);
+  } catch (error) {
+    console.error('Error creating court:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
