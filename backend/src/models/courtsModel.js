@@ -49,3 +49,20 @@ exports.getCourtWithComplex = async (courtId) => {
     );
     return result.rows[0];
   };
+
+  // Update court
+  exports.updateCourt = async (id, name, description, image_url, sports_complex_id) => {
+    const result = await pool.query(
+      `UPDATE courts
+      SET name = $1, description = $2, image_url = $3, sports_complex_id = $4
+      WHERE id = $5
+      RETURNING *`,
+      [name, description, image_url, sports_complex_id, id]
+    );
+    return result.rows[0];
+  };
+
+  // Delete court
+  exports.deleteCourt = async (id) => {
+    await pool.query(`DELETE FROM courts WHERE id = $1`, [id]);
+  };

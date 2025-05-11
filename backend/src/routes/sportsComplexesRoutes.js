@@ -5,3 +5,7 @@ const sportsComplexesController = require('../controllers/sportsComplexesControl
 router.post('/', sportsComplexesController.createSportsComplex);
 
 module.exports = router;
+
+router.put('/:id', sportsComplexesController.updateSportsComplex);
+router.delete('/:id', sportsComplexesController.deleteSportsComplex);
+

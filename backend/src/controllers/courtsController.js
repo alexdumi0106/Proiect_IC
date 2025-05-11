@@ -31,3 +31,24 @@ exports.createCourt = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.updateCourt = async (req, res) => {
+  try {
+    const updatedCourt = await courtsService.updateCourt(req.params.id, req.body);
+    res.json(updatedCourt);
+  } catch (error) {
+    console.error('Error updating court:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.deleteCourt = async (req, res) => {
+  try {
+    await courtsService.deleteCourt(req.params.id);
+    res.status(204).send(); // No Content
+  } catch (error) {
+    console.error('Error deleting court:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
