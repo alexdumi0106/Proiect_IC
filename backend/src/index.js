@@ -21,6 +21,9 @@ app.use('/api', reservationsRoutes);
 const sportsComplexesRoutes = require('./routes/sportsComplexesRoutes');
 app.use('/api/sports-complexes', sportsComplexesRoutes);
 
+//Ruta pentru autentificare
+const authRoutes = require('./routes/authRoutes');
+app.use('/api', authRoutes);
 
 // Start the server
 app.listen(PORT, () => {
