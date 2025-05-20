@@ -151,6 +151,13 @@
   color: white;
 }
 
+.slot-tile.past {
+  background: #eeeeee;
+  border-color: #cccccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
 /* Reservation Form */
 .reservation-card {
   background: #ffffff;
