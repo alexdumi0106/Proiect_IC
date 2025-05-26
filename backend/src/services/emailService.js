@@ -30,4 +30,34 @@ const sendReservationEmail = async (to, reservationDetails) => {
   await transporter.sendMail(mailOptions);
 };
 
-module.exports = { sendReservationEmail };
+const sendConfirmationEmail = async (to, { user_name, start_time, end_time, confirmation_token }) => {
+  const formattedStart = new Date(start_time).toLocaleString();
+  const formattedEnd = new Date(end_time).toLocaleString();
+
+  const confirmationLink = `${process.env.BASE_URL}/api/reservations/confirm/${confirmation_token}`;
+
+  const mailOptions = {
+    from: `"Tennis Time" <${process.env.EMAIL_USER}>`,
+    to,
+    subject: "Confirmă rezervarea ta - Tennis Time",
+    html: `
+      <h2>Salut, ${user_name}!</h2>
+      <p>Ai solicitat o rezervare pentru:</p>
+      <ul>
+        <li><strong>De la:</strong> ${formattedStart}</li>
+        <li><strong>Până la:</strong> ${formattedEnd}</li>
+      </ul>
+      <p>Te rugăm să confirmi rezervarea apăsând pe linkul de mai jos:</p>
+      <a href="${confirmationLink}">Confirmă rezervarea</a>
+      <br/><br/>
+      <p>Dacă nu ai solicitat această rezervare, poți ignora acest mesaj.</p>
+    `
+  };
+
+  await transporter.sendMail(mailOptions);
+};
+
+module.exports = {
+  sendReservationEmail,
+  sendConfirmationEmail
+};

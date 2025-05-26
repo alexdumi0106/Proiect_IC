@@ -8,13 +8,13 @@ exports.getReservationsByCourtId = async (courtId) => {
   return rows;
 };
 
-// Creează o rezervare nouă cu PIN
-exports.createReservation = async (courtId, userName, userEmail, startTime, endTime) => {
+// Creează o rezervare nouă cu PIN și token de confirmare
+exports.createReservation = async (courtId, userName, userEmail, startTime, endTime, confirmationToken) => {
   const pin = Math.floor(100000 + Math.random() * 900000).toString(); // PIN random de 6 cifre
 
   const query = `
-    INSERT INTO reservations (court_id, user_name, user_email, start_time, end_time, pin)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO reservations (court_id, user_name, user_email, start_time, end_time, pin, confirmation_token, confirmed)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, false)
     RETURNING *;
   `;
 
@@ -24,8 +24,36 @@ exports.createReservation = async (courtId, userName, userEmail, startTime, endT
     userEmail,
     startTime,
     endTime,
-    pin
+    pin,
+    confirmationToken
   ]);
 
   return rows[0];
 };
+
+exports.confirmReservationByToken = async (token) => {
+  const query = `
+    UPDATE reservations
+    SET confirmed = TRUE
+    WHERE confirmation_token = $1 AND confirmed = FALSE
+    RETURNING *;
+  `;
+
+  const { rows } = await pool.query(query, [token]);
+  const reservation = rows[0];
+
+  if (!reservation) return undefined;
+
+  // Obține numele terenului asociat
+  const courtQuery = `
+    SELECT name FROM courts WHERE id = $1
+  `;
+  const courtResult = await pool.query(courtQuery, [reservation.court_id]);
+
+  reservation.court_name = courtResult.rows[0]?.name || 'teren necunoscut';
+
+  return reservation;
+};
+
+
+
