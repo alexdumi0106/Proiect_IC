@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AdminPage.css';
 
 function AdminPage() {
 	// FOR SPORTS COMPLEXES
@@ -112,137 +113,152 @@ function AdminPage() {
       Logout
       </button>
 
-			<h2>Sports Complex operations</h2>
-      <h3>Add Sports Complex</h3>
-      <input
-        type="text"
-        placeholder="Name"
-        value={complexData.name}
-        onChange={e => setComplexData({ ...complexData, name: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Location"
-        value={complexData.location}
-        onChange={e => setComplexData({ ...complexData, location: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Description"
-        value={complexData.description}
-        onChange={e => setComplexData({ ...complexData, description: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Image URL"
-        value={complexData.image_url}
-        onChange={e => setComplexData({ ...complexData, image_url: e.target.value })}
-      />
-      <button onClick={handleAddComplex}> Add Complex </button>
+      <div className="sports-complexes-operations">
+        {/* Sports Complexes */}
+        <h2>Sports Complex operations</h2>
+        <section>
+          <h3>Add Sports Complex</h3>
+          <input
+            type="text"
+            placeholder="Name"
+            value={complexData.name}
+            onChange={e => setComplexData({ ...complexData, name: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Location"
+            value={complexData.location}
+            onChange={e => setComplexData({ ...complexData, location: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            value={complexData.description}
+            onChange={e => setComplexData({ ...complexData, description: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={complexData.image_url}
+            onChange={e => setComplexData({ ...complexData, image_url: e.target.value })}
+          />
+          <button onClick={handleAddComplex}> Add Complex </button>
+        </section>
 
-			<h3>Update Sports Complex</h3>
-			<input
-				type="number"
-				placeholder="ID"
-				value={updatedComplexData.id}
-				onChange={e => updateComplexData({ ...updatedComplexData, id: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Name"
-				value={updatedComplexData.name}
-				onChange={e => updateComplexData({ ...updatedComplexData, name: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Location"
-				value={updatedComplexData.location}
-				onChange={e => updateComplexData({ ...updatedComplexData, location: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Description"
-				value={updatedComplexData.description}
-				onChange={e => updateComplexData({ ...updatedComplexData, description: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Image URL"
-				value={updatedComplexData.image_url}
-				onChange={e => updateComplexData({ ...updatedComplexData, image_url: e.target.value})}
-			/>
-			<button onClick={handleUpdateComplex}> Update Complex </button>
+        <section>
+          <h3>Update Sports Complex</h3>
+          <input
+            type="number"
+            placeholder="ID"
+            value={updatedComplexData.id}
+            onChange={e => updateComplexData({ ...updatedComplexData, id: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Name"
+            value={updatedComplexData.name}
+            onChange={e => updateComplexData({ ...updatedComplexData, name: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Location"
+            value={updatedComplexData.location}
+            onChange={e => updateComplexData({ ...updatedComplexData, location: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            value={updatedComplexData.description}
+            onChange={e => updateComplexData({ ...updatedComplexData, description: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={updatedComplexData.image_url}
+            onChange={e => updateComplexData({ ...updatedComplexData, image_url: e.target.value})}
+          />
+          <button onClick={handleUpdateComplex}> Update Complex </button>
+        </section>
 
-			<h3> Delete Sports Complex </h3>
-			<input 
-				type="number"
-				placeholder="ID"
-				value={deleteId}
-				onChange={e => setDeleteId(e.target.value)}
-			/>
-			<button onClick={handleDeleteComplex}>Delete Complex</button>
+        <section>
+          <h3> Delete Sports Complex </h3>
+          <input 
+            type="number"
+            placeholder="ID"
+            value={deleteId}
+            onChange={e => setDeleteId(e.target.value)}
+          />
+          <button onClick={handleDeleteComplex}>Delete Complex</button>
+        </section>
+      </div>
 
-			{/* COURTS */}
-			<h2>Court Operations</h2>
-      <h3>Add Court</h3>
-      <input
-        type="text"
-        placeholder="Name"
-        value={courtData.name}
-        onChange={e => setCourtData({ ...courtData, name: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Description"
-        value={courtData.description}
-        onChange={e => setCourtData({ ...courtData, description: e.target.value })}
-      />
-      <input
-        type="number"
-        placeholder="Sports Complex ID"
-        value={courtData.sports_complex_id}
-        onChange={e => setCourtData({ ...courtData, sports_complex_id: e.target.value })}
-      />
-      <input
-        type="text"
-        placeholder="Image URL"
-        value={courtData.image_url}
-        onChange={e => setCourtData({ ...courtData, image_url: e.target.value })}
-      />
-      <button onClick={handleAddCourt}>Add Court</button>
+      <div className="court-operations">
+        {/* COURTS */}
+        <h2>Court operations</h2>
+        <section>
+          <h3>Add Court</h3>
+          <input
+            type="text"
+            placeholder="Name"
+            value={courtData.name}
+            onChange={e => setCourtData({ ...courtData, name: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            value={courtData.description}
+            onChange={e => setCourtData({ ...courtData, description: e.target.value })}
+          />
+          <input
+            type="number"
+            placeholder="Sports Complex ID"
+            value={courtData.sports_complex_id}
+            onChange={e => setCourtData({ ...courtData, sports_complex_id: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={courtData.image_url}
+            onChange={e => setCourtData({ ...courtData, image_url: e.target.value })}
+          />
+          <button onClick={handleAddCourt}>Add Court</button>
+        </section>
 
-			<h3>Update Court</h3>
-			<input
-				type="number"
-				placeholder="ID"
-				value={updatedCourtData.id}
-				onChange={e => updateCourtData({ ...updatedCourtData, id: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Name"
-				value={updatedCourtData.name}
-				onChange={e => updateCourtData({ ...updatedCourtData, name: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Description"
-				value={updatedCourtData.description}
-				onChange={e => updateCourtData({ ...updatedCourtData, description: e.target.value})}
-			/>
-			<input
-				type="number"
-				placeholder="SportsComplex ID"
-				value={updatedCourtData.sports_complex_id}
-				onChange={e => updateCourtData({ ...updatedCourtData, location: e.target.value})}
-			/>
-			<input
-				type="text"
-				placeholder="Image URL"
-				value={updatedCourtData.image_url}
-				onChange={e => updateCourtData({ ...updatedCourtData, image_url: e.target.value})}
-			/>
-			<button onClick={handleUpdateCourt}> Update Court </button>
+        <section>
+          <h3>Update Court</h3>
+          <input
+            type="number"
+            placeholder="ID"
+            value={updatedCourtData.id}
+            onChange={e => updateCourtData({ ...updatedCourtData, id: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Name"
+            value={updatedCourtData.name}
+            onChange={e => updateCourtData({ ...updatedCourtData, name: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            value={updatedCourtData.description}
+            onChange={e => updateCourtData({ ...updatedCourtData, description: e.target.value})}
+          />
+          <input
+            type="number"
+            placeholder="SportsComplex ID"
+            value={updatedCourtData.sports_complex_id}
+            onChange={e => updateCourtData({ ...updatedCourtData, sports_complex_id: e.target.value})}
+          />
+          <input
+            type="text"
+            placeholder="Image URL"
+            value={updatedCourtData.image_url}
+            onChange={e => updateCourtData({ ...updatedCourtData, image_url: e.target.value})}
+          />
+          <button onClick={handleUpdateCourt}> Update Court </button>
+        </section>
+      </div>
 
     </div>
   );

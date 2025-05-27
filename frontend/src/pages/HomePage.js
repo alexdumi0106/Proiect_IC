@@ -3,15 +3,74 @@ import axios from 'axios';
 import CourtCard from '../components/CourtCard';
 import './HomePage.css';
 
+function getAvailableSlotsToday(reservations) {
+  const today = new Date();
+  const now = new Date();
+  const available = [];
+
+  for (let h = 7; h < 24; h++) {
+    const slotStart = new Date(today);
+    const slotEnd = new Date(today);
+    slotStart.setHours(h, 0, 0, 0);
+    slotEnd.setHours(h + 1, 0, 0, 0);
+
+    // Replicating isSlotPast logic from CourtPage.js
+    const isPast = today.toDateString() === now.toDateString() && slotStart <= now;
+    if (isPast) continue;
+
+    const isBooked = reservations.some(r => {
+      const rStart = new Date(r.start_time);
+      const rEnd = new Date(r.end_time);
+      return slotStart < rEnd && slotEnd > rStart;
+    });
+
+    if (!isBooked) {
+      available.push(h);
+    }
+  }
+
+  return available.length;
+}
+
+async function fetchCourtWithAvailability(court) {
+  try {
+    const res = await axios.get(`/api/courts/${court.id}`);
+    const reservations = res.data.reservations || [];
+    const availableSlots = getAvailableSlotsToday(reservations);
+
+    return {
+      ...court,
+      availableSlots
+    };
+  } catch (err) {
+    console.error(`Error fetching court ${court.id}`, err);
+    return { ...court, availableSlots: 0 }; // fallback
+  }
+}
+
+
 function HomePage() {
   const [courts, setCourts] = useState([]);
   const courtListRef = useRef(null); 
 
   useEffect(() => {
-    axios.get('/api/courts')
-      .then(res => setCourts(res.data))
-      .catch(err => console.error('Error fetching courts:', err));
-  }, []);
+  async function fetchAllCourts() {
+    try {
+      const res = await axios.get('/api/courts');
+      const courtsRaw = res.data;
+
+      const courtsEnriched = await Promise.all(
+        courtsRaw.map(court => fetchCourtWithAvailability(court))
+      );
+
+      setCourts(courtsEnriched);
+    } catch (err) {
+      console.error('Error fetching courts:', err);
+    }
+  }
+
+  fetchAllCourts();
+}, []);
 
   const handleScrollToCourts = () => {
     courtListRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -38,7 +97,7 @@ function HomePage() {
       {/* Courts List */}
       <div className="court-list" ref={courtListRef}>
         {courts.map((court) => (
-          <CourtCard key={court.id} court={court} />
+          <CourtCard key={court.id} court={court} availableSlots={court.availableSlots}/>
         ))}
       </div>
     </div>

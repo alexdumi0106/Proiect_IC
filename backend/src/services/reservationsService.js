@@ -42,7 +42,7 @@ exports.createReservation = async ({ court_id, user_name, user_email, start_time
   };
 };
 
-const reservationsModel = require('../models/reservationsModel');
+// const reservationsModel = require('../models/reservationsModel');
 
 exports.confirmReservation = async (token) => {
   // Apelează modelul care actualizează rezervarea cu tokenul primit

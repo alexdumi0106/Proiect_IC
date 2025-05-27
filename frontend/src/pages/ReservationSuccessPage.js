@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import './ReservationSuccessPage.css';
 
 function ReservationSuccessPage() {
@@ -7,12 +7,12 @@ function ReservationSuccessPage() {
   const navigate = useNavigate();
 
   if (!state) {
-    return <div>No reservation data found.</div>;
+    return <Navigate to="/" replace />;
   }
 
   return (
     <div className="reservation-success-page">
-      <h1>🎾 Reservation Confirmed!</h1>
+      <h1>🎾 An Email to confirm your reservation was sent!</h1>
       <div className="reservation-details">
         <p><strong>Court:</strong> {state.courtName}</p>
         <p><strong>Complex:</strong> {state.complexName}</p>
@@ -20,7 +20,7 @@ function ReservationSuccessPage() {
         <p><strong>Email:</strong> {state.userEmail}</p>
         <p><strong>From:</strong> {state.startTime}</p>
         <p><strong>To:</strong> {state.endTime}</p>
-        <p className="pin-code"><strong>Your PIN:</strong> {state.pinCode}</p>
+        <p className="pin-code"><strong>Your PIN code will be available in the Confirmation Email!</strong></p>
       </div>
       <button onClick={() => navigate('/')} className="go-home-btn">
         Go Back to Home

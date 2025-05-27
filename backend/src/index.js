@@ -15,7 +15,7 @@ app.use('/api/courts', courtsRoutes);
 
 // +++++ Adaugă import pentru reservationsRoutes:
 const reservationsRoutes = require('./routes/reservationsRoutes');
-app.use('/api', reservationsRoutes);
+app.use('/api/reservations', reservationsRoutes);
 
 // Ruta pentru sportsComplex
 const sportsComplexesRoutes = require('./routes/sportsComplexesRoutes');

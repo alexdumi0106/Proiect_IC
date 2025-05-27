@@ -1,10 +1,21 @@
 const nodemailer = require("nodemailer");
+// Looking to send emails in production? Check out our Email API/SMTP product!
 
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.EMAIL_USER,     // Setează în .env
+//     pass: process.env.EMAIL_PASS
+//   }
+// });
+
+// Folosesc mailtrap pt a trimite email, comenteaza asta si decomenteaza cealalta
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: 'sandbox.smtp.mailtrap.io',
+  port: 2525,
   auth: {
-    user: process.env.EMAIL_USER,     // Setează în .env
-    pass: process.env.EMAIL_PASS
+    user: process.env.MAILTRAP_USER,
+    pass: process.env.MAILTRAP_PASS
   }
 });
 
@@ -34,7 +45,8 @@ const sendConfirmationEmail = async (to, { user_name, start_time, end_time, conf
   const formattedStart = new Date(start_time).toLocaleString();
   const formattedEnd = new Date(end_time).toLocaleString();
 
-  const confirmationLink = `${process.env.BASE_URL}/api/reservations/confirm/${confirmation_token}`;
+  // const confirmationLink = `${process.env.BASE_URL}/api/reservations/confirm/${confirmation_token}`;
+  const confirmationLink = `${process.env.BACKEND_URL}/api/reservations/confirm?token=${confirmation_token}`;
 
   const mailOptions = {
     from: `"Tennis Time" <${process.env.EMAIL_USER}>`,

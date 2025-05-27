@@ -1,7 +1,7 @@
 import React from 'react';
 import './CourtCard.css';
 
-function CourtCard({ court }) {
+function CourtCard({ court, availableSlots }) {
   const handleDetailsClick = () => {
     window.location.href = `/courts/${court.id}`;
   };
@@ -19,6 +19,10 @@ function CourtCard({ court }) {
         <h2 className="court-name">{court.name}</h2>
         <p className="court-location">📍 {court.location}</p>
 
+        {availableSlots !== undefined && (
+          <p className="slot-info">🕒 {availableSlots} slots available today</p>
+        )}
+        
         {/* View Details Button */}
         <button className="details-btn" onClick={handleDetailsClick}>
           View Details

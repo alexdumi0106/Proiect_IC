@@ -9,8 +9,6 @@ exports.createReservation = async (req, res) => {
   }
 };
 
-const reservationsService = require('../services/reservationsService');
-
 exports.confirmReservation = async (req, res) => {
   try {
     const { token } = req.query;
