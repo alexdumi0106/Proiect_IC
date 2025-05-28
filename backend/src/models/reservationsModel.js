@@ -55,5 +55,18 @@ exports.confirmReservationByToken = async (token) => {
   return reservation;
 };
 
+// Anulează rezervarea pe baza reservation_token
+exports.cancelReservationByToken = async (token) => {
+  const query = `
+    DELETE FROM reservations
+    WHERE reservation_token = $1
+    RETURNING *;
+  `;
+
+  const result = await pool.query(query, [token]);
+  return result.rowCount > 0;
+};
+
+
 
 

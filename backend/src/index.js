@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config(); // Always load env first
+require('./utils/cleanupReservations');
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Use .env fallback if needed
