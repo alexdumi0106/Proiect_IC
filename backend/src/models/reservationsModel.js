@@ -59,7 +59,7 @@ exports.confirmReservationByToken = async (token) => {
 exports.cancelReservationByToken = async (token) => {
   const query = `
     DELETE FROM reservations
-    WHERE reservation_token = $1
+    WHERE confirmation_token = $1
     RETURNING *;
   `;
 

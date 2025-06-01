@@ -12,7 +12,7 @@ const createReservation = async ({ court_id, user_name, user_email, start_time, 
   //Verificam daca exista deja o rezervare confirmata viitoare pe acest email
   const upcomingQuery = `
     SELECT 1 FROM reservations 
-    WHERE email = $1 
+    WHERE user_email = $1 
       AND start_time > NOW() 
       AND confirmed = true
     LIMIT 1;

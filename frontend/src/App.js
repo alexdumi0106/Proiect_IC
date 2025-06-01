@@ -6,6 +6,7 @@ import ReservationSuccessPage from './pages/ReservationSuccessPage';
 import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 import RequireAuth from './components/RequireAuth';
+import CancelReservationPage from './pages/CancelReservationPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <AdminPage />
           </RequireAuth>
         } />
+        <Route path="/cancel" element={<CancelReservationPage />} />
       </Routes>
     </Router>
   );

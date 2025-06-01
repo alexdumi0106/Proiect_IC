@@ -12,6 +12,8 @@ function CourtPage() {
   const [reservations, setReservations] = useState([]);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '' });
+  // In case of already upcoming reservation
+  const [errorMsg, setErrorMsg] = useState('');
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -80,9 +82,20 @@ function CourtPage() {
     }
   };
 
+  function isValidEmail(email) {
+    // Basic email pattern, works for most valid emails
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
   const handleCreateReservation = async () => {
+    setErrorMsg(''); // Clear previous error
     if (selectedSlots.length === 0) {
       alert('Please select at least one time slot.');
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setErrorMsg('Please enter a valid email address.');
       return;
     }
 
@@ -117,9 +130,11 @@ function CourtPage() {
         }
       });
     } catch (error) {
-      // console.error('Reservation failed:', error);
-      console.error('Reservation failed:', error.response?.data || error.message || error);
-      alert('Failed to create reservation.');
+      let msg = "Failed to create reservation.";
+      if (error.response && error.response.data && error.response.data.message) {
+        msg = error.response.data.message;
+      }
+      setErrorMsg(msg);
     }
   };
 
@@ -205,26 +220,56 @@ function CourtPage() {
       {selectedSlots.length > 0 && (
         <div className="reservation-card" ref={formRef}>
           <h2>Confirm Reservation</h2>
+          {errorMsg && (
+            <div className="reservation-error-message">
+              {errorMsg}
+            </div>
+          )}
           <p className="selected-time">
             {selectedSlots[0]} → {`${String(parseInt(selectedSlots[selectedSlots.length - 1]) + 1).padStart(2, '0')}:00`}
           </p>
+          
           <input
             type="text"
             placeholder="Your Name"
             value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e) => {
+              setFormData({ ...formData, name: e.target.value });
+              setErrorMsg('');
+            }}
           />
+
           <input
             type="email"
             placeholder="Your Email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={(e) => {
+              setFormData({ ...formData, email: e.target.value });
+              setErrorMsg('');
+            }}
           />
-          <button className="reserve-button" onClick={handleCreateReservation}>
+
+          {formData.email && !isValidEmail(formData.email) && (
+            <div className="reservation-error-message" style={{ marginTop: 8 }}>
+              Please enter a valid email address.
+            </div>
+          )}
+
+          <button
+            className="reserve-button"
+            onClick={handleCreateReservation}
+            disabled={
+              !formData.name.trim() ||
+              !formData.email.trim() ||
+              !isValidEmail(formData.email) ||
+              selectedSlots.length === 0
+            }
+          >
             Confirm Reservation
           </button>
         </div>
       )}
+
     </div>
   );
 }

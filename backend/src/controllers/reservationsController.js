@@ -28,7 +28,8 @@ const confirmReservation = async (req, res) => {
       courtName: confirmedReservation.court_name,
       date: new Date(confirmedReservation.start_time).toLocaleDateString(),
       time: `${new Date(confirmedReservation.start_time).toLocaleTimeString()} - ${new Date(confirmedReservation.end_time).toLocaleTimeString()}`,
-      pin: confirmedReservation.pin
+      pin: confirmedReservation.pin,
+      confirmation_token: confirmedReservation.confirmation_token
     });
 
     res.send('Rezervarea a fost confirmată cu succes! Verifică emailul pentru detalii.');
