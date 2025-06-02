@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendReservationEmail = async (to, reservationDetails) => {
-  const { courtName, date, time, pin, confirmation_token} = reservationDetails;
+  const { sportsComplex, courtName, date, time, pin, confirmation_token} = reservationDetails;
 
   const mailOptions = {
     from: `"Tennis Time" <${process.env.EMAIL_USER}>`,
@@ -28,12 +28,13 @@ const sendReservationEmail = async (to, reservationDetails) => {
     subject: "Confirmare rezervare teren - Tennis Time",
     html: `
       <h2>Rezervarea ta a fost înregistrată!</h2>
+      <p><strong>Baza sportiva:</strong> ${sportsComplex}</p>
       <p><strong>Teren:</strong> ${courtName}</p>
       <p><strong>Data:</strong> ${date}</p>
       <p><strong>Ora:</strong> ${time}</p>
       <p><strong>Cod PIN:</strong> <b>${pin}</b></p>
       <br/>
-      <p>Dacă vrei să anulezi rezervarea, răspunde acestui email sau accesează linkul de mai jos:</p>
+      <p>Dacă vrei să anulezi rezervarea, accesează linkul de mai jos:</p>
       <a href="${process.env.BASE_URL}/cancel?token=${confirmation_token}">Anulează rezervarea</a>
     `
   };
@@ -41,7 +42,7 @@ const sendReservationEmail = async (to, reservationDetails) => {
   await transporter.sendMail(mailOptions);
 };
 
-const sendConfirmationEmail = async (to, { user_name, start_time, end_time, confirmation_token }) => {
+const sendConfirmationEmail = async (to, { user_name, start_time, end_time, confirmation_token}) => {
   const formattedStart = new Date(start_time).toLocaleString();
   const formattedEnd = new Date(end_time).toLocaleString();
 
@@ -54,7 +55,7 @@ const sendConfirmationEmail = async (to, { user_name, start_time, end_time, conf
     subject: "Confirmă rezervarea ta - Tennis Time",
     html: `
       <h2>Salut, ${user_name}!</h2>
-      <p>Ai solicitat o rezervare pentru:</p>
+      <p>Ai solicitat o rezervare:</p>
       <ul>
         <li><strong>De la:</strong> ${formattedStart}</li>
         <li><strong>Până la:</strong> ${formattedEnd}</li>

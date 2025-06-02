@@ -61,17 +61,29 @@ function CourtPage() {
 
     if (isSlotBooked(label) || isSlotPast(label)) return;
 
-    const newSelected = [...selectedSlots];
+    // Handle deselection
+    if (selectedSlots.includes(slotKey)) {
+      // Work with string keys for consistency
+      const sorted = selectedSlots.slice().sort((a, b) => parseInt(a) - parseInt(b));
+      const idx = sorted.indexOf(slotKey);
 
-    if (newSelected.includes(slotKey)) {
-      setSelectedSlots(newSelected.filter(s => s !== slotKey));
+      if (sorted.length === 1) {
+        // Only one slot selected, clear all
+        setSelectedSlots([]);
+      } else if (idx === 0 || idx === sorted.length - 1) {
+        // Deselecting first or last: remove just that slot
+        const filtered = selectedSlots.filter(s => s !== slotKey);
+        setSelectedSlots(filtered);
+      } else {
+        // Deselecting a middle slot: clear all
+        setSelectedSlots([]);
+      }
       return;
     }
 
-    newSelected.push(slotKey);
-
-    // Sort correctly by hour value
-    const sorted = newSelected.sort((a, b) => parseInt(a) - parseInt(b));
+    // Handle selection
+    const newSelected = [...selectedSlots, slotKey];
+    const sorted = newSelected.slice().sort((a, b) => parseInt(a) - parseInt(b));
     const hourNums = sorted.map(s => parseInt(s));
     const isContinuous = hourNums.every((h, i, arr) => i === 0 || h === arr[i - 1] + 1);
 
@@ -81,6 +93,7 @@ function CourtPage() {
       alert("Please select only continuous time slots.");
     }
   };
+
 
   function isValidEmail(email) {
     // Basic email pattern, works for most valid emails
@@ -225,10 +238,11 @@ function CourtPage() {
               {errorMsg}
             </div>
           )}
+
           <p className="selected-time">
             {selectedSlots[0]} → {`${String(parseInt(selectedSlots[selectedSlots.length - 1]) + 1).padStart(2, '0')}:00`}
           </p>
-          
+    
           <input
             type="text"
             placeholder="Your Name"

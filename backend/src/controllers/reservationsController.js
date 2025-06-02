@@ -25,6 +25,7 @@ const confirmReservation = async (req, res) => {
     }
 
     await sendReservationEmail(confirmedReservation.user_email, {
+      sportsComplex: confirmedReservation.sportsComplex,
       courtName: confirmedReservation.court_name,
       date: new Date(confirmedReservation.start_time).toLocaleDateString(),
       time: `${new Date(confirmedReservation.start_time).toLocaleTimeString()} - ${new Date(confirmedReservation.end_time).toLocaleTimeString()}`,

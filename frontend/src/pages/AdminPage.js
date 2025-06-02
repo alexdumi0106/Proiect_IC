@@ -37,6 +37,8 @@ function AdminPage() {
 		image_url: ''
 	});
 
+  const [deleteCourtId, setDeletedCourtId] = useState('');
+
   // FOR SPORTS COMPLEXES
   const handleAddComplex = async () => {
 	const token = localStorage.getItem('adminToken');
@@ -65,16 +67,16 @@ function AdminPage() {
   };
 
 	const handleDeleteComplex = async () => {
-  const token = localStorage.getItem('adminToken');
-  try {
-    await axios.delete(`/api/sports-complexes/${deleteId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    alert('Sports complex deleted!');
-  	} catch (err) {
-    console.error(err);
-    alert('Failed to delete sports complex');
-  	}
+    const token = localStorage.getItem('adminToken');
+    try {
+      await axios.delete(`/api/sports-complexes/${deleteId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert('Sports complex deleted!');
+      } catch (err) {
+      console.error(err);
+      alert('Failed to delete sports complex');
+      }
 	};
 
   // FOR COURTS
@@ -102,6 +104,19 @@ function AdminPage() {
 			console.error(err);
 			alert('Failed to update court');
 		}
+	};
+
+  const handleDeleteCourt = async () => {
+    const token = localStorage.getItem('adminToken');
+    try {
+      await axios.delete(`/api/courts/${deleteCourtId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert('Court deleted!');
+      } catch (err) {
+      console.error(err);
+      alert('Failed to delete court');
+      }
 	};
 
   return (
@@ -257,6 +272,17 @@ function AdminPage() {
             onChange={e => updateCourtData({ ...updatedCourtData, image_url: e.target.value})}
           />
           <button onClick={handleUpdateCourt}> Update Court </button>
+        </section>
+
+        <section>
+          <h3> Delete Court </h3>
+          <input 
+            type="number"
+            placeholder="ID"
+            value={deleteCourtId}
+            onChange={e => setDeletedCourtId(e.target.value)}
+          />
+          <button onClick={handleDeleteCourt}>Delete Court</button>
         </section>
       </div>
 

@@ -44,14 +44,19 @@ exports.confirmReservationByToken = async (token) => {
 
   if (!reservation) return undefined;
 
-  // Obține numele terenului asociat
+  // Obține numele terenului asociat + complex sportiv
   const courtQuery = `
-    SELECT name FROM courts WHERE id = $1
+    SELECT courts.name AS court_name, sports_complexes.name AS complex_name
+    FROM courts
+    JOIN sports_complexes ON courts.sports_complex_id = sports_complexes.id
+    WHERE courts.id = $1
   `;
   const courtResult = await pool.query(courtQuery, [reservation.court_id]);
 
-  reservation.court_name = courtResult.rows[0]?.name || 'teren necunoscut';
-
+  // reservation.court_name = courtResult.rows[0]?.name || 'teren necunoscut';
+  reservation.court_name = courtResult.rows[0]?.court_name;
+  reservation.sportsComplex = courtResult.rows[0]?.complex_name;
+  
   return reservation;
 };
 

@@ -52,6 +52,8 @@ async function fetchCourtWithAvailability(court) {
 function HomePage() {
   const [courts, setCourts] = useState([]);
   const courtListRef = useRef(null); 
+  // For the search bar
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
   async function fetchAllCourts() {
@@ -64,17 +66,21 @@ function HomePage() {
       );
 
       setCourts(courtsEnriched);
-    } catch (err) {
+      } catch (err) {
       console.error('Error fetching courts:', err);
+      }
     }
-  }
-
-  fetchAllCourts();
-}, []);
+    fetchAllCourts();
+  }, []);
 
   const handleScrollToCourts = () => {
     courtListRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const filteredCourts = courts.filter(court =>
+    court.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (court.complex_name && court.complex_name.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
   return (
     <div className="homepage">
@@ -87,18 +93,38 @@ function HomePage() {
         </button>
       </div>
 
-      {/* Wave Divider */}
+      {/* Wave Divider
       <div className="wave-divider">
         <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
           <path d="M0,0 C480,150 960,0 1440,150 L1440,00 L0,0 Z" fill="#f7f7f7"></path>
         </svg>
+      </div> */}
+
+      {/* Search Bar */}
+      <div className="search-bar-wrapper">
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="🔍 Search courts by name..."
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+          autoFocus
+        />
       </div>
 
       {/* Courts List */}
       <div className="court-list" ref={courtListRef}>
-        {courts.map((court) => (
-          <CourtCard key={court.id} court={court} availableSlots={court.availableSlots}/>
-        ))}
+        {
+          filteredCourts.length === 0 ? (
+            <div className="no-courts-found">
+              No courts found.
+            </div>
+          ) : (
+            filteredCourts.map(court => (
+              <CourtCard key={court.id} court={court} availableSlots={court.availableSlots}/>
+            ))
+          )
+        }
       </div>
     </div>
   );
